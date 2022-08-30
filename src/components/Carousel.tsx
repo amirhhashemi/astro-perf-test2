@@ -9,6 +9,7 @@ export default function () {
           src="/alex-gruber-PyoVjVgOfHg-unsplash.jpg"
           width={640}
           height={426}
+          loading="lazy"
         />
         <p>Legend 1</p>
       </div>
@@ -17,6 +18,7 @@ export default function () {
           src="/andrei-ionov-O0eomEdcums-unsplash.jpg"
           width={640}
           height={426}
+          loading="lazy"
         />
         <p>Legend 2</p>
       </div>
@@ -25,6 +27,7 @@ export default function () {
           src="/daniel-lezuch-iRjx7w3O8v0-unsplash.jpg"
           width={640}
           height={426}
+          loading="lazy"
         />
         <p>Legend 3</p>
       </div>

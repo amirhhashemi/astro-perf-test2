@@ -1,44 +1,14 @@
-import { createServer } from "http";
-import fs from "fs";
-import mime from "mime";
+import express from "express";
+import compression from "compression";
 import { handler as ssrHandler } from "../dist/server/entry.mjs";
 
-const clientRoot = new URL("../dist/client/", import.meta.url);
+const app = express();
 
-async function handle(req, res) {
-  ssrHandler(req, res, async (err) => {
-    if (err) {
-      res.writeHead(500);
-      res.end(err.stack);
-      return;
-    }
+app.use(compression());
 
-    let local = new URL("." + req.url, clientRoot);
-    try {
-      const data = await fs.promises.readFile(local);
-      res.writeHead(200, {
-        "Content-Type": mime.getType(req.url),
-      });
-      res.end(data);
-    } catch {
-      res.writeHead(404);
-      res.end();
-    }
-  });
-}
+app.use(express.static("dist/client/"));
+app.use(ssrHandler);
 
-const server = createServer((req, res) => {
-  handle(req, res).catch((err) => {
-    console.error(err);
-    res.writeHead(500, {
-      "Content-Type": "text/plain",
-    });
-    res.end(err.toString());
-  });
+app.listen(8080, () => {
+  console.log("Server running at port 8080");
 });
-
-server.listen(8080);
-console.log("Serving at http://localhost:8080");
-
-// Silence weird <time> warning
-console.error = () => {};

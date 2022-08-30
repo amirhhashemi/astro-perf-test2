@@ -3,11 +3,17 @@ import Layout from "../layouts/Layout.astro";
 import Counter from "../components/Counter";
 import Images from "../components/Images.astro";
 import NavigationMenu from "../components/NavigationMenu";
+import Carousel from "../components/Carousel";
+import Toast from "../components/Toast";
+import Form from "../components/Form";
 ---
 
 <Layout title="Welcome to Astro.">
   <main>
+    <Toast client:load />
     <Counter client:load />
+    <Form client:visible />
     <Images />
+    <Carousel client:visible />
   </main>
 </Layout>
